@@ -9,7 +9,7 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
 
 function getOutputString() : string {
   const parts = [part1, part2];
-  const testCases = [0, 0, 0, 0];
+  const testCases = [143, 7198, 0, 0];
   let testIndex = 0;
 
   let i = 1;
