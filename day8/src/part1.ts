@@ -30,7 +30,7 @@ export default function main(input: FormattedInput): number {
   return antinodes.size;
 }
 
-function getAntennaPositions(matrix: string[][]) {
+export function getAntennaPositions(matrix: string[][]) {
   const map: Record<string, [[number, number]]> = {};
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[0].length; col++) {
