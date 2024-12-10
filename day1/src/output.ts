@@ -1,15 +1,45 @@
-import { test, input } from './parseInput';
+import { test, input, FormattedInput } from './parseInput';
 import part1 from './part1';
 import part2 from './part2';
 
-const output = `
-Part 1-
-TEST: ${part1(test)}
-INPUT: ${part1(input)}
+function getResult(func: Function, input: FormattedInput, expected: number) {
+  const result = func(input);
+  return [result, result === expected];
+}
 
-Part 2-
-TEST: ${part2(test)}
-INPUT: ${part2(input)}
-`;
+function getOutputString() {
+  const parts = [part1, part2];
+  const testCases = [11, 2970687, 31, 23963899];
+  let testIndex = 0;
 
-console.log(output);
+  let i = 1;
+  let output = []; //an array is used to avoid using backslashes outside of the bash script used to generate this
+  for (const func of parts) {
+    output.push(`Part ${i}-`);
+
+    let [result, correct] = getResult(func, test, testCases[testIndex]);
+    testIndex++;
+
+    output.push(`TEST: ${result}, ${correct ? 'CORRECT' : 'WRONG'}`);
+    if (!correct) break;
+
+    [result, correct] = getResult(func, input, testCases[testIndex]);
+    testIndex++;
+    
+    output.push(`INPUT: ${result}, ${correct ? 'CORRECT' : 'WRONG'}`);
+    if (!correct) break;
+    i++
+  }
+
+  return `
+  ${output[0] || ''}
+  ${output[1] || ''}
+  ${output[2] || ''}
+  
+  ${output[3] || ''}
+  ${output[4] || ''}
+  ${output[5] || ''}
+  `
+}
+
+console.log(getOutputString());
