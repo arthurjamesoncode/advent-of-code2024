@@ -9,7 +9,7 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
 
 function getOutputString() : string {
   const parts = [part1, part2];
-  const testCases = [1928, 6283170117911, 0, 0];
+  const testCases = [1928, 6283170117911, 2858, 6307653242596];
   let testIndex = 0;
 
   let i = 1;
