@@ -10,7 +10,7 @@ export default function main(input: FormattedInput): number {
   return total;
 }
 
-function isReportSafe(report: number[]): boolean {
+export function isReportSafe(report: number[]): boolean {
   let increasing = false;
   for (let i = 0; i < report.length - 1; i++) {
     const diff = report[i] - report[i + 1];
