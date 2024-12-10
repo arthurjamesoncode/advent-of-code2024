@@ -1,6 +1,6 @@
 import { FormattedInput } from './parseInput';
 
-const DIRECTIONS = [
+export const DIRECTIONS = [
   [-1, 0],
   [0, 1],
   [1, 0],
@@ -27,11 +27,11 @@ export default function main(input: FormattedInput): number {
     currentRow = newRow;
     currentCol = newCol;
   }
-  
+
   return visited.size;
 }
 
-function findGuard(matrix: string[][]): [number, number] {
+export function findGuard(matrix: string[][]): [number, number] {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[0].length; col++) {
       if (matrix[row][col] === '^') return [row, col];
