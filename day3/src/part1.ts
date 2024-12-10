@@ -8,7 +8,6 @@ export default function main(input: FormattedInput): number {
   let index = 0;
   while (index < input.length) {
     if (input.substring(index, index + 4) === 'mul(') {
-      index = index + 4;
       const [newIndex, valid, nums] = validateExpression(index, input);
       index = newIndex;
 
@@ -30,6 +29,7 @@ export function validateExpression(
   index: number,
   input: string
 ): [number, boolean, string[]] {
+  index = index + 4;
   let valid = true;
   let done = false;
   const nums = ['', ''];

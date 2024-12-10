@@ -9,7 +9,8 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
 
 function getOutputString() : string {
   const parts = [part1, part2];
-  const testCases = [161, 170068701, 0, 0];
+  const tests = [test, `xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))`] //for some reason they changed the test between parts for this one
+  const testCases = [161, 170068701, 48, 78683433];
   let testIndex = 0;
 
   let i = 1;
@@ -17,7 +18,7 @@ function getOutputString() : string {
   for (const func of parts) {
     output.push(`Part ${i}-`);
 
-    let [result, correct] = getResult(func, test, testCases[testIndex]);
+    let [result, correct] = getResult(func, tests[i-1], testCases[testIndex]);
     testIndex++;
 
     output.push(`TEST: ${result}, ${correct ? 'CORRECT' : 'WRONG'}`);
