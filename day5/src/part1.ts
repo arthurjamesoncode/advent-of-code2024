@@ -3,7 +3,6 @@ import { FormattedInput } from './parseInput';
 export default function main(input: FormattedInput): number {
   const { rules, updates } = input;
   const beforeMap = generateBeforeMap(rules);
-  console.log(beforeMap)
 
   let total = 0;
   for (const update of updates) {
@@ -17,7 +16,7 @@ export default function main(input: FormattedInput): number {
   return total;
 }
 
-function generateBeforeMap(
+export function generateBeforeMap(
   rules: [number, number][]
 ): Map<number, Set<number>> {
   const map = new Map<number, Set<number>>();
@@ -31,7 +30,7 @@ function generateBeforeMap(
   return map;
 }
 
-function isUpdateValid(
+export function isUpdateValid(
   update: number[],
   beforeMap: Map<number, Set<number>>
 ): boolean {
