@@ -40,17 +40,27 @@ mkdir "day$x/src"
 read -r -d '' PARSE_INPUT_CONTENT << END
 import fs from 'fs';
 
-const rawTest = fs.readFileSync('./inputs/test.txt', 'utf-8')
-const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
-
-export type FormattedInput = string //string is placeholder
+export type FormattedInput = string[][];
 
 function parseInput(input: string): FormattedInput {
-  return input
+  const matrix = input.split('\n').map((line) => line.split(''));
+  return matrix;
 }
 
-export const test = parseInput(rawTest)
-export const input = parseInput(rawInput)
+function getRawTests(numOfTests: number) {
+  const rawTests = [];
+  for (let i = 1; i <= numOfTests; i++) {
+    rawTests.push(fs.readFileSync('./inputs/test' + i + '.txt', 'utf-8'));
+  }
+  return rawTests
+}
+
+const rawTests = getRawTests(1)
+const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
+
+
+export const tests = rawTests.map(parseInput);
+export const input = parseInput(rawInput);
 END
 echo "$PARSE_INPUT_CONTENT" > "day$x/src/parseInput.ts"
 
@@ -65,8 +75,8 @@ END
 echo "$PART_CONTENT" > "day$x/src/part1.ts"
 echo "$PART_CONTENT" > "day$x/src/part2.ts"
 
-read -d '' OUTPUT_CONTENT << END
-import { test, input, FormattedInput } from './parseInput';
+read -r -d '' OUTPUT_CONTENT << END
+import { tests, input, FormattedInput } from './parseInput';
 import part1 from './part1';
 import part2 from './part2';
 
@@ -75,39 +85,48 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
   return [result, result === expected];
 }
 
-function getOutputString() : string {
+function getOutputString(): string {
   const parts = [part1, part2];
-  const testCases = [0, 0, 0, 0];
+  const testCases = [
+    [NaN],
+    [NaN],
+  ];
+  const answers = [NaN, NaN];
   let testIndex = 0;
 
-  let i = 1;
-  let output = []; //an array is used to avoid using backslashes outside of the bash script used to generate this
+  let i = 0;
+  let output = '';
   for (const func of parts) {
-    output.push(\`Part \${i}-\`);
+    output += 'Part ' + (i + 1) + '-\n';
 
-    let [result, correct] = getResult(func, test, testCases[testIndex]);
-    testIndex++;
+    let stop = false;
+    tests.forEach((test, index) => {
+      let [result, correct] = getResult(func, test, testCases[i][index]);
 
-    output.push(\`TEST: \${result}, \${correct ? 'CORRECT' : 'WRONG'}\`);
+      testIndex++;
+      output +=
+        'TEST ' +
+        (index + 1) +
+        ': ' +
+        result +
+        ', ' +
+        (correct ? 'CORRECT' : 'WRONG') +
+        '\n';
+      if (!correct) stop = true;
+    });
+    if (stop) break;
+
+    let [result, correct] = getResult(func, input, answers[i]);
+
+    output +=
+      'INPUT: ' + result + ', ' + (correct ? 'CORRECT' : 'WRONG') + '\n';
     if (!correct) break;
+    i++;
 
-    [result, correct] = getResult(func, input, testCases[testIndex]);
-    testIndex++;
-    
-    output.push(\`INPUT: \${result}, \${correct ? 'CORRECT' : 'WRONG'}\`);
-    if (!correct) break;
-    i++
+    output += '\n';
   }
 
-  return \`
-  \${output[0] || ''}
-  \${output[1] || ''}
-  \${output[2] || ''}
-  
-  \${output[3] || ''}
-  \${output[4] || ''}
-  \${output[5] || ''}
-  \`
+  return output;
 }
 
 console.log(getOutputString());
@@ -118,5 +137,5 @@ mkdir "day$x/dist"
 echo "dist" > "day$x/.gitignore"
 
 mkdir "day$x/inputs"
-touch "day$x/inputs/test.txt"
+touch "day$x/inputs/test1.txt"
 touch "day$x/inputs/input.txt"
