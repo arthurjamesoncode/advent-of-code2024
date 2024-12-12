@@ -1,14 +1,23 @@
 import fs from 'fs';
 
-const rawTest = fs.readFileSync('./inputs/test.txt', 'utf-8')
-const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
-
-export type FormattedInput = string[][]
+export type FormattedInput = string[][];
 
 function parseInput(input: string): FormattedInput {
-  const matrix = input.split('\n').map(line => line.split(''))
-  return matrix
+  const matrix = input.split('\n').map((line) => line.split(''));
+  return matrix;
 }
 
-export const test = parseInput(rawTest)
-export const input = parseInput(rawInput)
+function getRawTests(numOfTests: number) {
+  const rawTests = [];
+  for (let i = 1; i <= numOfTests; i++) {
+    rawTests.push(fs.readFileSync('./inputs/test' + i + '.txt', 'utf-8'));
+  }
+  return rawTests
+}
+
+const rawTests = getRawTests(5)
+const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
+
+
+export const tests = rawTests.map(parseInput);
+export const input = parseInput(rawInput);
