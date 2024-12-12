@@ -40,11 +40,10 @@ mkdir "day$x/src"
 read -r -d '' PARSE_INPUT_CONTENT << END
 import fs from 'fs';
 
-export type FormattedInput = string[][];
+export type FormattedInput = string; //placeholder type
 
 function parseInput(input: string): FormattedInput {
-  const matrix = input.split('\n').map((line) => line.split(''));
-  return matrix;
+  return input;
 }
 
 function getRawTests(numOfTests: number) {
