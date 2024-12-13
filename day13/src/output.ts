@@ -10,7 +10,7 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
 function getOutputString(): string {
   const parts = [part1, part2];
   const testCases = [
-    [NaN],
+    [480],
     [NaN],
   ];
   const answers = [NaN, NaN];

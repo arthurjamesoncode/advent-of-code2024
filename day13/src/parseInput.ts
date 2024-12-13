@@ -1,10 +1,12 @@
 import fs from 'fs';
 
-export type FormattedInput = {
+export type Machine = {
   a: [number, number];
   b: [number, number];
   prize: [number, number];
-}[];
+}
+
+export type FormattedInput = Machine[];
 
 function parseInput(input: string): FormattedInput {
   const machines = input.split('\n\n').map((machine) => {
