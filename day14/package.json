@@ -1,0 +1,1 @@
+{"scripts":{"output":"tsc && node dist/output.js"},"dependencies":{"canvas":"^2.11.2"}}
