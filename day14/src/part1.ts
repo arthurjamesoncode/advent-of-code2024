@@ -1,4 +1,4 @@
-import { FormattedInput, Robot } from './parseInput';
+import { FormattedInput} from './parseInput';
 
 export default function main(input: FormattedInput): number {
   const { robots, gridSize } = input;
