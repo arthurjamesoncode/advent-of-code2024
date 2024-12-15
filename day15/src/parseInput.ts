@@ -1,13 +1,13 @@
 import fs from 'fs';
 
-export type FormattedInput = { matrix: string[][]; moves: string };
+export type FormattedInput = { matrix: string[][]; instructions: string };
 
 function parseInput(input: string): FormattedInput {
-  const [warehouse, instructions] = input.split('\n\n');
+  const [warehouse, moves] = input.split('\n\n');
   const matrix = warehouse.split('\n').map((row) => row.split(''));
-  const moves = instructions.split('\n').join('');
-  
-  return { matrix, moves };
+  const instructions = moves.split('\n').join('');
+
+  return { matrix, instructions };
 }
 
 function getRawTests(numOfTests: number) {
@@ -18,7 +18,7 @@ function getRawTests(numOfTests: number) {
   return rawTests;
 }
 
-const rawTests = getRawTests(1);
+const rawTests = getRawTests(2);
 const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
 
 export const tests = rawTests.map(parseInput);
