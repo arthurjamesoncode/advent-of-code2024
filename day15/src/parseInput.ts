@@ -18,7 +18,7 @@ function getRawTests(numOfTests: number) {
   return rawTests;
 }
 
-const rawTests = getRawTests(2);
+const rawTests = getRawTests(3);
 const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
 
 export const tests = rawTests.map(parseInput);

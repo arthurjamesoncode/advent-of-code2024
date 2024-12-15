@@ -8,7 +8,8 @@ const DIRECTIONS: Record<string, [number, number]> = {
 };
 
 export default function main(input: FormattedInput): number {
-  const { matrix, instructions } = input;
+  const { matrix: originalMatrix, instructions } = input;
+  const matrix = originalMatrix.map(row => [...row])
 
   let pos = findRobot(matrix);
   for (const instruction of instructions) {
@@ -30,7 +31,7 @@ export default function main(input: FormattedInput): number {
   return total;
 }
 
-function findRobot(matrix: string[][]): [number, number] {
+export function findRobot(matrix: string[][]): [number, number] {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[0].length; col++) {
       const char = matrix[row][col];
