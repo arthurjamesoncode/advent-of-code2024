@@ -1,7 +1,7 @@
 import { FormattedInput } from './parseInput';
 import { MinPriorityQueue } from '@datastructures-js/priority-queue';
 
-type QueueItem = {
+export type QueueItem = {
   pos: [number, number];
   direction: number;
   score: number;
@@ -42,7 +42,7 @@ export default function main(input: FormattedInput): number {
     const [newRow, newCol] = [row + vector[0], col + vector[1]];
 
     if (matrix[newRow] && matrix[newRow][newCol] !== '#') {
-      queue.push({
+      queue.enqueue({
         pos: [newRow, newCol],
         direction,
         score: score + 1,
@@ -65,7 +65,7 @@ export default function main(input: FormattedInput): number {
   return -1;
 }
 
-function getScore(item: QueueItem) {
+export function getScore(item: QueueItem) {
   return item.score;
 }
 
