@@ -1,6 +1,13 @@
 import { FormattedInput } from './parseInput';
+import { MinPriorityQueue } from '@datastructures-js/priority-queue';
 
-const DIRECTIONS = [
+type QueueItem = {
+  pos: [number, number];
+  direction: number;
+  score: number;
+};
+
+export const DIRECTIONS = [
   [0, 1],
   [1, 0],
   [0, -1],
@@ -12,34 +19,19 @@ export default function main(input: FormattedInput): number {
   const startPos = findStart(matrix);
 
   const visited = new Set<string>();
-  const queue: {
-    pos: [number, number];
-    direction: number;
-    score: number;
-  }[] = [
-    {
-      pos: startPos,
-      direction: 0,
-      score: 0,
-    },
-  ];
+  const queue = new MinPriorityQueue<QueueItem>(getScore);
+  queue.enqueue({ pos: startPos, direction: 0, score: 0 });
 
-  let lowest = Number.MAX_SAFE_INTEGER;
-
-  while (queue.length) {
-    queue.sort((a, b) => a.score - b.score);
-
+  while (!queue.isEmpty()) {
     const {
       pos: [row, col],
       direction,
       score,
-    } = queue.shift()!;
+    } = queue.dequeue()!;
 
     const current = `${row},${col}:${direction}`;
     if (visited.has(current)) continue;
     visited.add(current);
-
-    if (score > lowest) continue;
 
     const char = matrix[row][col];
     if (char === 'E') {
@@ -57,23 +49,27 @@ export default function main(input: FormattedInput): number {
       });
     }
 
-    queue.push({
+    queue.enqueue({
       pos: [row, col],
       direction: (direction + 1) % 4,
       score: score + 1000,
     });
 
-    queue.push({
+    queue.enqueue({
       pos: [row, col],
       direction: (direction + 3) % 4,
       score: score + 1000,
     });
   }
 
-  return lowest;
+  return -1;
 }
 
-function findStart(matrix: string[][]): [number, number] {
+function getScore(item: QueueItem) {
+  return item.score;
+}
+
+export function findStart(matrix: string[][]): [number, number] {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[0].length; col++) {
       const char = matrix[row][col];
