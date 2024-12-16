@@ -1,9 +1,10 @@
 import fs from 'fs';
 
-export type FormattedInput = string; //placeholder type
+export type FormattedInput = string[][];
 
 function parseInput(input: string): FormattedInput {
-  return input;
+  const matrix = input.split('\n').map(line => line.split(''))
+  return matrix;
 }
 
 function getRawTests(numOfTests: number) {
@@ -14,7 +15,7 @@ function getRawTests(numOfTests: number) {
   return rawTests
 }
 
-const rawTests = getRawTests(1)
+const rawTests = getRawTests(2)
 const rawInput = fs.readFileSync('./inputs/input.txt', 'utf-8');
 
 
