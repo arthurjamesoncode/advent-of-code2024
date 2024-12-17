@@ -1,7 +1,9 @@
 import fs from 'fs';
 
+export type Registers = { A: number; B: number; C: number };
+
 export type FormattedInput = {
-  registers: Record<string, number>;
+  registers: { A: number; B: number; C: number };
   instructions: number[];
 };
 
@@ -11,8 +13,8 @@ function parseInput(input: string): FormattedInput {
   const registers = memory.split('\n').reduce((acc, line) => {
     const [key, value] = line.substring(9).split(': ');
 
-    return { ...acc, [key]:  Number(value) };
-  }, {});
+    return { ...acc, [key]: Number(value) };
+  }, {} as { A: number; B: number; C: number });
 
   const instructions = program.substring(9).split(',').map(Number);
   return { registers, instructions };

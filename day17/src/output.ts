@@ -2,7 +2,7 @@ import { tests, input, FormattedInput } from './parseInput';
 import part1 from './part1';
 import part2 from './part2';
 
-function getResult(func: Function, input: FormattedInput, expected: number) {
+function getResult(func: Function, input: FormattedInput, expected: string | number) {
   const result = func(input);
   return [result, result === expected];
 }
@@ -10,10 +10,10 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
 function getOutputString(): string {
   const parts = [part1, part2];
   const testCases = [
-    [NaN],
+    ['4,6,3,5,6,3,5,2,1,0'],
     [NaN],
   ];
-  const answers = [NaN, NaN];
+  const answers = ['3,6,3,7,0,7,0,3,0', NaN];
   let testIndex = 0;
 
   let i = 0;
