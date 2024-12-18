@@ -2,18 +2,19 @@ import { tests, input, FormattedInput } from './parseInput';
 import part1 from './part1';
 import part2 from './part2';
 
-function getResult(func: Function, input: FormattedInput, expected: number) {
+function getResult(
+  func: Function,
+  input: FormattedInput,
+  expected: number | string
+) {
   const result = func(input);
   return [result, result === expected];
 }
 
 function getOutputString(): string {
   const parts = [part1, part2];
-  const testCases = [
-    [22],
-    [NaN],
-  ];
-  const answers = [280, NaN];
+  const testCases = [[22], ['6,1']];
+  const answers = [280, '28,56'];
   let testIndex = 0;
 
   let i = 0;

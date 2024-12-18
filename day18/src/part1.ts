@@ -1,14 +1,14 @@
 import { FormattedInput } from './parseInput';
 import { MinPriorityQueue } from '@datastructures-js/priority-queue';
 
-const DIRECTIONS = [
+export const DIRECTIONS = [
   [1, 0],
   [0, 1],
   [-1, 0],
   [0, -1],
 ];
 
-type QueueItem = {
+export type QueueItem = {
   pos: [number, number];
   distance: number;
 };
