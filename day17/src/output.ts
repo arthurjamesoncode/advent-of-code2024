@@ -10,10 +10,10 @@ function getResult(func: Function, input: FormattedInput, expected: string | num
 function getOutputString(): string {
   const parts = [part1, part2];
   const testCases = [
-    ['4,6,3,5,6,3,5,2,1,0'],
-    [NaN],
+    ['5,7,3,0'],
+    [117440],
   ];
-  const answers = ['3,6,3,7,0,7,0,3,0', NaN];
+  const answers = ['3,6,3,7,0,7,0,3,0', 136904920099226];
   let testIndex = 0;
 
   let i = 0;
