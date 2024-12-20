@@ -1,6 +1,6 @@
 import { FormattedInput } from './parseInput';
 
-const DIRECTIONS = [
+export const DIRECTIONS = [
   [1, 0],
   [0, 1],
   [-1, 0],
@@ -75,7 +75,7 @@ export default function main(input: FormattedInput): number {
   return total;
 }
 
-function getDistanceMap(matrix: string[][]) {
+export function getDistanceMap(matrix: string[][]) {
   let pos = findCell('S', matrix);
 
   const distances = new Map<string, number>();
@@ -109,7 +109,7 @@ function getDistanceMap(matrix: string[][]) {
   return distances;
 }
 
-function findCell(cell: string, matrix: string[][]): [number, number] {
+export function findCell(cell: string, matrix: string[][]): [number, number] {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[0].length; col++) {
       if (matrix[row][col] === cell) return [row, col];

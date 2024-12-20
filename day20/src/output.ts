@@ -11,9 +11,9 @@ function getOutputString(): string {
   const parts = [part1, part2];
   const testCases = [
     [0],
-    [NaN],
+    [0],
   ];
-  const answers = [1452, NaN];
+  const answers = [1452, 999556];
   let testIndex = 0;
 
   let i = 0;
