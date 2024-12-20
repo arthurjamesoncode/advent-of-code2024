@@ -9,8 +9,8 @@ export const DIRECTIONS = [
 
 export default function main(input: FormattedInput): number {
   const distances = getDistanceMap(input);
-  const cheats = new Map<number, number>(); //seconds saved -> count
-
+  
+  let total = 0;
   for (const [key, distance] of distances) {
     const [row, col] = key.split(',').map(Number);
 
@@ -34,19 +34,9 @@ export default function main(input: FormattedInput): number {
           continue;
         }
 
-        const numCheats = cheats.get(current - newDistance);
-        numCheats
-          ? cheats.set(current - newDistance, numCheats + 1)
-          : cheats.set(current - newDistance, 1);
+        if(current - newDistance >= 100) total ++
       }
     }
-  }
-
-  let total = 0;
-  for (const [key, value] of cheats) {
-    if (key < 100) continue;
-
-    total += value;
   }
 
   return total;
