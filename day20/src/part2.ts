@@ -1,33 +1,50 @@
 import { FormattedInput } from './parseInput';
 import { getDistanceMap } from './part1';
 
+const ORIENTATIONS = [
+  [1, 1],
+  [-1, -1],
+  [-1, 1],
+  [1, -1],
+];
+
 export default function main(input: FormattedInput): number {
   const distances = getDistanceMap(input);
   const path = getPath(distances);
 
-  const cheats = new Map<number, number>();
+  const cheats = new Set<string>();
 
   let total = 0;
-  for (let i = 0; i < path.length - 1; i++) {
-    const key1 = path[i];
+  for (const tile of path) {
+    const key1 = tile;
     const distance1 = distances.get(key1)!;
-    const pos1 = key1.split(',').map(Number) as [number, number];
+    const pos = key1.split(',').map(Number) as [number, number];
+    const [row, col] = pos;
 
-    for (let j = i; j < path.length; j++) {
-      const key2 = path[j];
-      const distance2 = distances.get(key2)!;
-      const pos2 = key2.split(',').map(Number) as [number, number];
+    for (let dRow = 0; dRow <= 20; dRow++) {
+      for (let dCol = 0; dCol <= 20 - dRow; dCol++) {
+        if (dRow === 0 && dCol === 0) continue;
 
-      const manhattanDistance = getManhattanDistance(pos1, pos2);
-      if (manhattanDistance > 20) continue;
+        for (const orientation of ORIENTATIONS) {
+          const newPos = [
+            row + dRow * orientation[0],
+            col + dCol * orientation[1],
+          ];
+          const key2 = newPos.join(',');
 
-      if (distance1 + manhattanDistance >= distance2) continue;
+          if (cheats.has(key1 + ',' + key2)) continue;
+          cheats.add(key1 + ',' + key2);
 
-      const diff = distance2 - (distance1 + manhattanDistance);
-      const numCheats = cheats.get(diff);
-      numCheats ? cheats.set(diff, numCheats + 1) : cheats.set(diff, 1);
+          const distance2 = distances.get(key2);
+          const newDistance = distance1 + dRow + dCol;
 
-      if (diff >= 100) total++;
+          if (distance2 === undefined || newDistance > distance2) continue;
+
+          const diff = distance2 - newDistance;
+
+          if (diff >= 100) total++;
+        }
+      }
     }
   }
 
@@ -40,8 +57,4 @@ function getPath(distances: Map<string, number>) {
     path.push(entry);
   }
   return path;
-}
-
-function getManhattanDistance(pos1: [number, number], pos2: [number, number]) {
-  return Math.abs(pos1[0] - pos2[0]) + Math.abs(pos1[1] - pos2[1]);
 }
