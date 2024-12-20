@@ -1,1 +1,5 @@
-{"scripts":{"output":"tsc && node dist/output.js"},"dependencies":{"@datastructures-js/priority-queue":"^6.3.1"}}
+{
+  "scripts": {
+    "output": "tsc && node dist/output.js"
+  }
+}

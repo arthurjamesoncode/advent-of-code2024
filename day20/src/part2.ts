@@ -1,6 +1,5 @@
 import { FormattedInput } from './parseInput';
-import { DIRECTIONS, getDistanceMap } from './part1';
-import { MinPriorityQueue } from '@datastructures-js/priority-queue';
+import { getDistanceMap } from './part1';
 
 export default function main(input: FormattedInput): number {
   const distances = getDistanceMap(input);
