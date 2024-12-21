@@ -1,9 +1,9 @@
 import fs from 'fs';
 
-export type FormattedInput = string; //placeholder type
+export type FormattedInput = string[]; //placeholder type
 
 function parseInput(input: string): FormattedInput {
-  return input;
+  return input.split('\n');
 }
 
 function getRawTests(numOfTests: number) {
