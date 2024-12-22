@@ -9,8 +9,8 @@ function getResult(func: Function, input: FormattedInput, expected: number) {
 
 function getOutputString(): string {
   const parts = [part1, part2];
-  const testCases = [[126384], [NaN]];
-  const answers = [224326, NaN];
+  const testCases = [[126384], [154115708116294]];
+  const answers = [224326, 279638326609472];
   let testIndex = 0;
 
   let i = 0;

@@ -7,24 +7,24 @@ const DIRECTIONS: [number, number, string][] = [
   [0, -1, '<'],
 ];
 
-const dPad = [
+export const dPad = [
   [' ', '^', 'A'],
   ['<', 'v', '>'],
 ];
 
-const dPositions: Record<string, [number, number]> = dPad.reduce(
+export const dPositions: Record<string, [number, number]> = dPad.reduce(
   reduceToPositionMap,
   {}
 );
 
-const numPad = [
+export const numPad = [
   ['7', '8', '9'],
   ['4', '5', '6'],
   ['1', '2', '3'],
   [' ', '0', 'A'],
 ];
 
-const numPositions: Record<string, [number, number]> = numPad.reduce(
+export const numPositions: Record<string, [number, number]> = numPad.reduce(
   reduceToPositionMap,
   {}
 );
@@ -80,7 +80,7 @@ function findPathLength(
   return length;
 }
 
-function findAllMinPaths(
+export function findAllMinPaths(
   start: string,
   end: string,
   keypad: string[][],
