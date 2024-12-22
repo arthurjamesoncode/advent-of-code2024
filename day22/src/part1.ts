@@ -10,7 +10,7 @@ export default function main(input: FormattedInput): number {
   return total;
 }
 
-function nextSecretNumber(num: number): number {
+export function nextSecretNumber(num: number): number {
   num ^= num * 64;
   num >>>= 0;
   num %= 16777216;
