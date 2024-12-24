@@ -1,8 +1,10 @@
 import { FormattedInput } from './parseInput';
 
 export default function main(input: FormattedInput): number {
-  const { values, gates } = input;
+  let { values, gates } = input;
+  values = { ...values };
   const entries = Object.entries(gates);
+  // if(entries.length > 50) return 46362252142374; //temporary
 
   const zWires = [];
   for (const [result, gate] of entries) {
